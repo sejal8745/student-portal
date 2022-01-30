@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function Student() {
+export default function Student(props) {
   const { name, setName } = useState("");
   const { standard, setStandard } = useState("");
   const { rollno, setRollno } = useState("");
 
-  const submitHandler = async () => {
-    const saved = await axios("http://localhost:3000/students", {
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    const saved = await axios.post("http://localhost:3000/students", {
       name,
       standard,
       rollno,
     });
     if (!saved) alert("oops! data didn't saved");
+    else console.log("data saved");
   };
 
   return (
